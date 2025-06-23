@@ -1,24 +1,23 @@
-from src.read_file import read_assignments, read_students
 from src.runner import Runner
 from src.evaluator import Evaluator
+from src.file_reader import File_Reader
+from src.util import check_time
+
+import matplotlib.pyplot as plt
+
+@check_time
+def main():
+    students = File_Reader.read_students()
+    assignments = File_Reader.read_assignments()
+
+    for assignment in assignments:
+        Evaluator(students, assignment)()
+
+    for assignment in assignments:
+
+        assignment.dump_csv()
+        assignment.dump_graph(students)
+
 
 if __name__ == "__main__":
-    students = read_students()
-    assignment = read_assignments()
-
-    evaluator = Evaluator(students, assignment[0], ["Sogang University"])
-    evaluator.run()
-
-    # for assignment in read_assignments(config.BASE_PATH) :
-    # for file in assignment.files :
-    #     runner = Runner(file.path, ["Sogang University"])
-
-    # inputs = User_Input()
-    # file_organizer = File_Organizer(inputs.delete_file_flag, inputs.total_problem, inputs.target_problem)
-    # ids = file_organizer.run()
-
-    # eval_result = Evaluator(ids, inputs.ignore_space_flag, inputs.essentials, inputs.forbiddens, inputs.inputs).run();
-    # Result_Printer.run(eval_result);
-
-    # inputs.check_feedback_id()
-    # if inputs.feedback_id_flag : file_organizer.feedback_ids(ids)
+    main()

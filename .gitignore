@@ -5,7 +5,7 @@ __pycache__
 target/*
 !target/
 
-evaluation/*
+evaluation/
 !evaluation/
 
 student.csv
