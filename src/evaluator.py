@@ -68,9 +68,9 @@ class Evaluator:
             else:
                 results = [run(arg) for arg in args_list]
 
-            remove_file_set = set(config.INPUT_PATH)
+            remove_file_set = {config.INPUT_PATH}
             for id, score_detail, files in results:
-                remove_file_set.add(files)
+                remove_file_set = remove_file_set.union(files)
                 self.add_scoreDetail(self.id_to_student[id], score_detail)
             clean_up(remove_file_set)
 

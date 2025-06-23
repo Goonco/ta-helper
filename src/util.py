@@ -5,8 +5,7 @@ import shutil
 
 def clean_up(paths) :
     for path in paths :
-        print(f"removing {path}")
-        # safe_remove(path)
+        safe_remove(path)
 
 def safe_remove(path):
     if os.path.exists(path):

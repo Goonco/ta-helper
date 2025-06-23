@@ -1,5 +1,7 @@
 import os
 import pandas as pd
+import unicodedata
+
 from src import config
 from src.data_class import File
 from src.assignment import Assignment
@@ -14,21 +16,24 @@ class File_Reader:
     @check_time
     def read_assignments() -> List[Assignment]:
         assignments = []
-        candidates = filter(
-            lambda x: os.path.isdir(os.path.join(config.BASE_PATH, x)),
-            os.listdir(config.BASE_PATH),
-        )
+        raw_candidates = [
+            x for x in os.listdir(config.BASE_PATH)
+            if os.path.isdir(os.path.join(config.BASE_PATH, x))
+        ]
+        candidates = [unicodedata.normalize("NFC", x) for x in raw_candidates]
 
         for name in config.ASSIGNMENT_META.keys():
-            if name in candidates:
+            normalized_name = unicodedata.normalize("NFC", name)
+            if normalized_name in candidates:
                 assignments.append(
                     Assignment(
-                        name,
-                        File_Reader.read_files(os.path.join(config.BASE_PATH, name)),
+                        normalized_name,
+                        File_Reader.read_files(os.path.join(config.BASE_PATH, normalized_name)),
                     )
                 )
             else:
                 raise FileNotFoundError(f"Assignment {name} not found")
+
         return assignments
 
     @staticmethod

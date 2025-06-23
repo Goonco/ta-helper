@@ -21,7 +21,7 @@ class Runner:
 
     @check_time
     def run(self, filepath) -> List[Result]:
-        print(f"Run {filepath} with {self.inputs}")
+        # print(f"Run {filepath} with {self.inputs}")
         with open(filepath) as f:
             nb = nbformat.read(f, as_version=4)
 
