@@ -55,7 +55,7 @@ class Assignment:
         student_names = [student.name for student in students]
         scores = [student.scores[self.name].total_score for student in students]
 
-        plt.rcParams['font.family'] = 'AppleGothic'
+        plt.rcParams["font.family"] = "AppleGothic"
         plt.figure(figsize=(15, 6))
         plt.xticks(rotation=45, fontsize=8)
         plt.bar(student_names, scores, color="skyblue")
@@ -65,4 +65,4 @@ class Assignment:
         plt.ylim(0, max(scores) + 10)
 
         plt.tight_layout()
-        plt.savefig(os.path.join(dir_name, f"{self.name}_scores.png")) 
+        plt.savefig(os.path.join(dir_name, f"{self.name}_scores.png"))

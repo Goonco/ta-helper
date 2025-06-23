@@ -3,9 +3,11 @@ import time
 from functools import wraps
 import shutil
 
-def clean_up(paths) :
-    for path in paths :
+
+def clean_up(paths):
+    for path in paths:
         safe_remove(path)
+
 
 def safe_remove(path):
     if os.path.exists(path):
@@ -26,6 +28,25 @@ def check_time(func):
 
         print(f"[{func.__name__}] : {duration:.4f}s")
 
+        return result
+
+    return wrapper
+
+
+DEBUG = False
+
+
+def print_debug(func):
+    wraps(func)
+
+    def wrapper(*args, **kwargs):
+        if DEBUG:
+            print(f"[DEBUG] {func.__name__} called")
+            print(f"        args = {args}")
+            print(f"        kwargs = {kwargs}")
+        result = func(*args, **kwargs)
+        if DEBUG:
+            print(f"        result = {result}")
         return result
 
     return wrapper

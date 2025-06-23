@@ -17,7 +17,8 @@ class File_Reader:
     def read_assignments() -> List[Assignment]:
         assignments = []
         raw_candidates = [
-            x for x in os.listdir(config.BASE_PATH)
+            x
+            for x in os.listdir(config.BASE_PATH)
             if os.path.isdir(os.path.join(config.BASE_PATH, x))
         ]
         candidates = [unicodedata.normalize("NFC", x) for x in raw_candidates]
@@ -28,7 +29,9 @@ class File_Reader:
                 assignments.append(
                     Assignment(
                         normalized_name,
-                        File_Reader.read_files(os.path.join(config.BASE_PATH, normalized_name)),
+                        File_Reader.read_files(
+                            os.path.join(config.BASE_PATH, normalized_name)
+                        ),
                     )
                 )
             else:

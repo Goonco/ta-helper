@@ -29,7 +29,12 @@ class Runner:
             self._modify_cell(cell)
 
         client = NotebookClient(nb, timeout=20, kernel_name="python3")
-        client.execute()
+        
+        try:
+            client.execute()
+        except Exception as e:
+            print(f"Error in {filepath} with {self.inputs}")
+            raise
 
         results = []
         for cell in filter(lambda cell: cell.cell_type == "code", nb.cells):
@@ -58,7 +63,8 @@ class Runner:
 
     def _handle_magic_commands(self, cell):
         lines = cell.source.splitlines()
-        if len(lines) == 0: return []
+        if len(lines) == 0:
+            return []
         first_line = lines[0].strip()
 
         # %% is always in the first line
@@ -80,7 +86,8 @@ class Runner:
         new_lines = []
         for line in lines:
             if "input(" in line:
-                new_lines.append("from src.fake_input import fakeInput")
+                indent = line[:len(line) - len(line.lstrip())]
+                new_lines.append(f"{indent}from src.fake_input import fakeInput")
                 new_lines.append(line.replace("input(", "fakeInput.fake_input("))
             else:
                 new_lines.append(line)

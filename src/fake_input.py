@@ -10,9 +10,13 @@ class FakeInput:
         self.input_iter = iter(self._inputs)
 
     def fake_input(self, prompt=""):
-        cur_input = next(self.input_iter)
-        print(f"{prompt} {cur_input}")
-        return cur_input
+        try :
+            cur_input = next(self.input_iter)
+            print(f"{prompt} {cur_input}")
+            return cur_input
+        except StopIteration :
+            print("Too much input calls!")
+            return False
 
 
 fakeInput = FakeInput()

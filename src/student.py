@@ -1,5 +1,5 @@
 from src.data_class import Score
-from typing import  Dict
+from typing import Dict
 
 
 class Student:
@@ -7,10 +7,10 @@ class Student:
         self.id = id
         self.name = name
 
-        self.scores : Dict[str, Score] = {}
+        self.scores: Dict[str, Score] = {}
 
     def __str__(self):
         return f"{self.name}-{self.id}"
 
     def create_score(self, assignmentName: str):
-        self.scores[assignmentName] = Score(0,[])
+        self.scores[assignmentName] = Score(0, [])

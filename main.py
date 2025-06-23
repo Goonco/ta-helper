@@ -5,6 +5,7 @@ from src.util import check_time
 
 import matplotlib.pyplot as plt
 
+
 @check_time
 def main():
     students = File_Reader.read_students()

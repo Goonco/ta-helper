@@ -23,7 +23,11 @@ def run(args):
         score = 0
         result = None
 
-    return student.id, ScoreDetail(criteria.input, status, score, result), runner.created_files_and_dirs
+    return (
+        student.id,
+        ScoreDetail(criteria.input, status, score, result),
+        runner.created_files_and_dirs,
+    )
 
 
 class Evaluator:
@@ -44,7 +48,7 @@ class Evaluator:
         for student in self.students:
             self.id_to_student[student.id] = student
 
-        self.multiprocessing = True
+        self.multiprocessing = False
 
     def __call__(self):
         for criteria in self.assignment.criterias:
